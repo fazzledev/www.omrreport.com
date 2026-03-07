@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OMR Report — Multi-School Assessment Platform</title>
+  <meta name="description" content="The unified assessment platform for multi-school coaching organizations. Deploy tests, upload OMRs, generate reports — all in one place.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['Lexend', 'sans-serif'],
+            body: ['Merriweather', 'Georgia', 'serif'],
+          },
+          colors: {
+            navy: {
+              950: '#0a0e27',
+              900: '#0f1535',
+              800: '#151d45',
+              700: '#1c2760',
+              600: '#283580',
+            },
+            accent: {
+              red: '#e63946',
+              redDark: '#c1121f',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* ---- Base ---- */
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Merriweather', Georgia, serif; }
+
+    /* ---- Hero tagline stagger animation ---- */
+    @keyframes fadeSlideUp {
+      0%   { opacity: 0; transform: translateY(24px) skewY(1deg); filter: blur(4px); }
+      100% { opacity: 1; transform: translateY(0) skewY(0deg); filter: blur(0); }
+    }
+    .tagline-line {
+      opacity: 0;
+      animation: fadeSlideUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    .tagline-line:nth-child(1) { animation-delay: 0.15s; }
+    .tagline-line:nth-child(2) { animation-delay: 0.35s; }
+    .tagline-line:nth-child(3) { animation-delay: 0.55s; }
+    .tagline-line:nth-child(4) { animation-delay: 0.75s; }
+    .tagline-line:nth-child(5) { animation-delay: 0.95s; }
+    .tagline-punchline {
+      opacity: 0;
+      animation: fadeSlideUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation-delay: 1.35s;
+    }
+
+    /* ---- Subtle grain overlay for hero ---- */
+    .grain::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0.035;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 128px 128px;
+    }
+
+    /* ---- Diagonal line pattern for accent bg ---- */
+    .diagonal-lines {
+      background-image: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 8px,
+        rgba(99, 102, 241, 0.03) 8px,
+        rgba(99, 102, 241, 0.03) 9px
+      );
+    }
+
+    /* ---- Feature card hover ---- */
+    .feature-card {
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px -12px rgba(15, 21, 53, 0.12);
+    }
+
+    /* ---- CTA button pulse ring ---- */
+    @keyframes pulseRing {
+      0%   { transform: scale(1);   opacity: 0.5; }
+      70%  { transform: scale(1.3); opacity: 0; }
+      100% { transform: scale(1.3); opacity: 0; }
+    }
+    .cta-pulse::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 9999px;
+      border: 2px solid currentColor;
+      animation: pulseRing 2.5s ease-out infinite;
+    }
+
+    /* ---- Problem list checkmarks ---- */
+    .problem-item::before {
+      content: '';
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(230, 57, 70, 0.12);
+      border: 1.5px solid rgba(230, 57, 70, 0.3);
+      margin-top: 3px;
+    }
+    .solution-item::before {
+      content: '\2713';
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(34, 197, 94, 0.12);
+      border: 1.5px solid rgba(34, 197, 94, 0.3);
+      color: #16a34a;
+      font-family: 'Lexend', sans-serif;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 3px;
+    }
+
+    /* ---- Mobile nav ---- */
+    @media (max-width: 768px) {
+      .hero-taglines { font-size: 1.5rem !important; }
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-800 antialiased">
+
+  <!-- ==============================
+       NAV
+       ============================== -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-navy-950/80 backdrop-blur-xl border-b border-white/5">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="/" class="font-heading font-700 text-lg text-white tracking-tight flex items-center gap-2">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" class="shrink-0">
+          <rect width="28" height="28" rx="7" fill="url(#navLogo)"/>
+          <circle cx="9" cy="10" r="2.2" fill="white" opacity="0.9"/>
+          <circle cx="14" cy="10" r="2.2" fill="white" opacity="0.9"/>
+          <circle cx="19" cy="10" r="2.2" fill="white" opacity="0.9"/>
+          <circle cx="9" cy="15.5" r="2.2" fill="#e63946"/>
+          <circle cx="14" cy="15.5" r="2.2" fill="white" opacity="0.9"/>
+          <circle cx="19" cy="15.5" r="2.2" fill="white" opacity="0.9"/>
+          <rect x="7" y="20" width="14" height="2" rx="1" fill="white" opacity="0.3"/>
+          <defs><linearGradient id="navLogo" x1="0" y1="0" x2="28" y2="28"><stop stop-color="#4338ca"/><stop offset="1" stop-color="#1e1b4b"/></linearGradient></defs>
+        </svg>
+        OMR Report
+      </a>
+      <a href="https://app.reportcard.pro" target="_blank" rel="noopener" class="font-heading text-sm font-500 text-indigo-300 hover:text-white transition-colors px-4 py-2 rounded-full border border-indigo-400/20 hover:border-indigo-400/40">
+        Launch App &rarr;
+      </a>
+    </div>
+  </nav>
+
+  <!-- ==============================
+       HERO
+       ============================== -->
+  <section class="relative grain overflow-hidden bg-navy-950 min-h-screen flex items-center pt-16">
+    <!-- Decorative gradient orbs -->
+    <div class="absolute top-1/4 -left-32 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-1/4 -right-32 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-700/5 rounded-full blur-3xl"></div>
+
+    <div class="relative z-10 max-w-5xl mx-auto px-6 py-20 md:py-32 text-center">
+      <!-- Chip -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-8">
+        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+        <span class="font-heading text-xs font-400 text-indigo-200 tracking-wide uppercase">Multi-School Assessment Platform</span>
+      </div>
+
+      <!-- Animated taglines -->
+      <div class="hero-taglines mb-6" style="font-size: 2.25rem; line-height: 1.25;">
+        <p class="tagline-line font-heading font-300 text-white/50">Bring all schools.</p>
+        <p class="tagline-line font-heading font-300 text-white/55">Prepare all tests.</p>
+        <p class="tagline-line font-heading font-300 text-white/60">Upload all OMRs.</p>
+        <p class="tagline-line font-heading font-300 text-white/65">Generate all reports.</p>
+        <p class="tagline-line font-heading font-300 text-white/70">Improve all students.</p>
+      </div>
+
+      <p class="tagline-punchline font-heading font-800 text-3xl md:text-5xl lg:text-6xl text-white tracking-tight mb-8">
+        All in one place.
+      </p>
+
+      <p class="tagline-punchline font-body text-base md:text-lg text-indigo-200/70 max-w-xl mx-auto mb-12 leading-relaxed" style="animation-delay: 1.6s;">
+        The unified assessment platform for multi-school coaching organizations.
+      </p>
+
+      <!-- CTAs -->
+      <div class="tagline-punchline flex flex-col sm:flex-row items-center justify-center gap-4" style="animation-delay: 1.85s;">
+        <a href="https://app.reportcard.pro" target="_blank" rel="noopener"
+           class="relative cta-pulse font-heading font-600 text-sm px-8 py-3.5 rounded-full bg-indigo-500 hover:bg-indigo-400 text-white transition-colors shadow-lg shadow-indigo-500/25">
+          Get Started
+        </a>
+        <a href="#how-it-works"
+           class="font-heading font-500 text-sm px-8 py-3.5 rounded-full text-indigo-300 hover:text-white border border-white/10 hover:border-white/20 transition-colors">
+          See How It Works
+        </a>
+      </div>
+
+      <!-- Scroll hint -->
+      <div class="tagline-punchline mt-20 text-indigo-400/40" style="animation-delay: 2.4s;">
+        <svg class="w-5 h-5 mx-auto animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================
+       PROBLEMS & SOLUTIONS
+       ============================== -->
+  <section id="how-it-works" class="diagonal-lines py-20 md:py-32">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 gap-12 md:gap-16">
+        <!-- Problems -->
+        <div>
+          <span class="font-heading text-xs font-600 uppercase tracking-widest text-accent-red/70 mb-4 block">The Problem</span>
+          <h2 class="font-heading font-700 text-2xl md:text-3xl text-navy-900 leading-tight mb-8">
+            Managing Multiple Schools Shouldn't Be This Hard
+          </h2>
+          <div class="space-y-5">
+            <div class="problem-item flex items-start gap-4">
+              <div>
+                <p class="font-heading font-600 text-sm text-navy-800 mb-1">Scattered Systems</p>
+                <p class="font-body text-sm text-gray-500 leading-relaxed">Each school uses different tools, formats, and workflows. Nothing talks to anything else.</p>
+              </div>
+            </div>
+            <div class="problem-item flex items-start gap-4">
+              <div>
+                <p class="font-heading font-600 text-sm text-navy-800 mb-1">Manual Processing</p>
+                <p class="font-body text-sm text-gray-500 leading-relaxed">Hours spent grading OMR sheets manually, prone to errors and impossible to scale.</p>
+              </div>
+            </div>
+            <div class="problem-item flex items-start gap-4">
+              <div>
+                <p class="font-heading font-600 text-sm text-navy-800 mb-1">No Comparison</p>
+                <p class="font-body text-sm text-gray-500 leading-relaxed">Can't benchmark students or cohorts across schools. No cross-school visibility.</p>
+              </div>
+            </div>
+            <div class="problem-item flex items-start gap-4">
+              <div>
+                <p class="font-heading font-600 text-sm text-navy-800 mb-1">Slow Turnaround</p>
+                <p class="font-body text-sm text-gray-500 leading-relaxed">Students wait days for results. By the time reports arrive, the moment for course correction has passed.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Solutions -->
+        <div class="md:border-l md:border-indigo-100 md:pl-16">
+          <span class="font-heading text-xs font-600 uppercase tracking-widest text-green-600/70 mb-4 block">The Solution</span>
+          <h2 class="font-heading font-700 text-2xl md:text-3xl text-navy-900 leading-tight mb-8">
+            A Unified Platform Built for Multi-School Excellence
+          </h2>
+          <div class="space-y-5">
+            <div class="solution-item flex items-start gap-4">
+              <div>
+                <p class="font-heading font-600 text-sm text-navy-800 mb-1">Deploy Everywhere</p>
+                <p class="font-body text-sm text-gray-500 leading-relaxed">Deploy tests across all schools instantly. One test, many centers, zero coordination headaches.</p>
+              </div>
+            </div>
+            <div class="solution-item flex items-start gap-4">
+              <div>
+                <p class="font-heading font-600 text-sm text-navy-800 mb-1">Upload and Done</p>
+                <p class="font-body text-sm text-gray-500 leading-relaxed">Upload scanned OMR sheets and results appear automatically. No manual grading.</p>
+              </div>
+            </div>
+            <div class="solution-item flex items-start gap-4">
+              <div>
+                <p class="font-heading font-600 text-sm text-navy-800 mb-1">Compare Everything</p>
+                <p class="font-body text-sm text-gray-500 leading-relaxed">Compare everything with anything. Student vs. student, school vs. school, test vs. test.</p>
+              </div>
+            </div>
+            <div class="solution-item flex items-start gap-4">
+              <div>
+                <p class="font-heading font-600 text-sm text-navy-800 mb-1">Instant Results</p>
+                <p class="font-body text-sm text-gray-500 leading-relaxed">Results in minutes, not days. Students and teachers get actionable insights while it still matters.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================
+       FEATURES
+       ============================== -->
+  <section class="bg-slate-50/80 py-20 md:py-32">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <span class="font-heading text-xs font-600 uppercase tracking-widest text-indigo-500/70 mb-4 block">Capabilities</span>
+        <h2 class="font-heading font-800 text-3xl md:text-4xl text-navy-900 tracking-tight">
+          Everything you need, nothing you don't
+        </h2>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Feature 1 -->
+        <div class="feature-card bg-white rounded-2xl p-7 border border-gray-100">
+          <div class="w-11 h-11 rounded-xl bg-indigo-50 flex items-center justify-center mb-5">
+            <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+            </svg>
+          </div>
+          <h3 class="font-heading font-600 text-base text-navy-900 mb-2">Multi-School Management</h3>
+          <p class="font-body text-sm text-gray-500 leading-relaxed">One dashboard to manage every school, branch, and center. Add schools in seconds.</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card bg-white rounded-2xl p-7 border border-gray-100">
+          <div class="w-11 h-11 rounded-xl bg-amber-50 flex items-center justify-center mb-5">
+            <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+          </div>
+          <h3 class="font-heading font-600 text-base text-navy-900 mb-2">Lightning-Fast OMR Processing</h3>
+          <p class="font-body text-sm text-gray-500 leading-relaxed">Thousands of sheets processed in minutes. Batch upload, sit back, get results.</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card bg-white rounded-2xl p-7 border border-gray-100">
+          <div class="w-11 h-11 rounded-xl bg-emerald-50 flex items-center justify-center mb-5">
+            <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+          </div>
+          <h3 class="font-heading font-600 text-base text-navy-900 mb-2">Unified Reporting</h3>
+          <p class="font-body text-sm text-gray-500 leading-relaxed">Consolidated reports across all schools. See the big picture and the fine details.</p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-card bg-white rounded-2xl p-7 border border-gray-100">
+          <div class="w-11 h-11 rounded-xl bg-violet-50 flex items-center justify-center mb-5">
+            <svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+            </svg>
+          </div>
+          <h3 class="font-heading font-600 text-base text-navy-900 mb-2">Role-Based Access</h3>
+          <p class="font-body text-sm text-gray-500 leading-relaxed">Admins, teachers, and center heads see exactly what they need. Nothing more, nothing less.</p>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="feature-card bg-white rounded-2xl p-7 border border-gray-100">
+          <div class="w-11 h-11 rounded-xl bg-rose-50 flex items-center justify-center mb-5">
+            <svg class="w-5 h-5 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+          </div>
+          <h3 class="font-heading font-600 text-base text-navy-900 mb-2">Robust Processing</h3>
+          <p class="font-body text-sm text-gray-500 leading-relaxed">Handles low-resolution scans, rotated documents, and imperfect prints. Real-world ready.</p>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="feature-card bg-white rounded-2xl p-7 border border-gray-100">
+          <div class="w-11 h-11 rounded-xl bg-cyan-50 flex items-center justify-center mb-5">
+            <svg class="w-5 h-5 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <h3 class="font-heading font-600 text-base text-navy-900 mb-2">Comprehensive Analytics</h3>
+          <p class="font-body text-sm text-gray-500 leading-relaxed">10+ report types. Student performance, topic analysis, difficulty mapping, trend tracking, and more.</p>
+        </div>
+
+        <!-- Feature 7 -->
+        <div class="feature-card bg-white rounded-2xl p-7 border border-gray-100">
+          <div class="w-11 h-11 rounded-xl bg-sky-50 flex items-center justify-center mb-5">
+            <svg class="w-5 h-5 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+            </svg>
+          </div>
+          <h3 class="font-heading font-600 text-base text-navy-900 mb-2">Scalable Growth</h3>
+          <p class="font-body text-sm text-gray-500 leading-relaxed">Start with one school. Grow to a hundred. The platform scales with your ambition.</p>
+        </div>
+
+        <!-- Feature 8 -->
+        <div class="feature-card bg-white rounded-2xl p-7 border border-gray-100">
+          <div class="w-11 h-11 rounded-xl bg-orange-50 flex items-center justify-center mb-5">
+            <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/>
+            </svg>
+          </div>
+          <h3 class="font-heading font-600 text-base text-navy-900 mb-2">Any OMR Format</h3>
+          <p class="font-body text-sm text-gray-500 leading-relaxed">JEE Main, JEE Advanced, NEET, or custom formats. If it's an OMR sheet, we can read it.</p>
+        </div>
+
+        <!-- Feature 9 -->
+        <div class="feature-card bg-white rounded-2xl p-7 border border-gray-100 relative overflow-hidden">
+          <div class="absolute top-3 right-3">
+            <span class="font-heading text-[10px] font-600 uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">New</span>
+          </div>
+          <div class="w-11 h-11 rounded-xl bg-indigo-50 flex items-center justify-center mb-5">
+            <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+            </svg>
+          </div>
+          <h3 class="font-heading font-600 text-base text-navy-900 mb-2">AI-Powered Features</h3>
+          <p class="font-body text-sm text-gray-500 leading-relaxed">Intelligent insights, predictive analytics, and automated recommendations powered by AI.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================
+       WHO IT'S FOR
+       ============================== -->
+  <section class="py-20 md:py-32">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <span class="font-heading text-xs font-600 uppercase tracking-widest text-indigo-500/70 mb-4 block">Built For You</span>
+        <h2 class="font-heading font-800 text-3xl md:text-4xl text-navy-900 tracking-tight">
+          Who is OMR Report for?
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Card 1 -->
+        <div class="group relative rounded-2xl border border-gray-100 p-8 hover:border-indigo-200 transition-colors">
+          <div class="absolute inset-0 rounded-2xl bg-gradient-to-b from-indigo-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <div class="relative">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-indigo-700 flex items-center justify-center mb-6 shadow-lg shadow-indigo-500/20">
+              <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+              </svg>
+            </div>
+            <h3 class="font-heading font-700 text-lg text-navy-900 mb-3">JEE/NEET Coaching Centers</h3>
+            <p class="font-body text-sm text-gray-500 leading-relaxed">
+              Run mock tests at scale, process thousands of OMR sheets, and deliver detailed performance analytics to students preparing for India's toughest exams.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="group relative rounded-2xl border border-gray-100 p-8 hover:border-indigo-200 transition-colors">
+          <div class="absolute inset-0 rounded-2xl bg-gradient-to-b from-indigo-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <div class="relative">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-indigo-700 flex items-center justify-center mb-6 shadow-lg shadow-indigo-500/20">
+              <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+              </svg>
+            </div>
+            <h3 class="font-heading font-700 text-lg text-navy-900 mb-3">Multi-Branch Institutes</h3>
+            <p class="font-body text-sm text-gray-500 leading-relaxed">
+              Coordinate assessments across branches, benchmark performance between centers, and maintain consistent quality organization-wide.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="group relative rounded-2xl border border-gray-100 p-8 hover:border-indigo-200 transition-colors">
+          <div class="absolute inset-0 rounded-2xl bg-gradient-to-b from-indigo-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <div class="relative">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-indigo-700 flex items-center justify-center mb-6 shadow-lg shadow-indigo-500/20">
+              <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+              </svg>
+            </div>
+            <h3 class="font-heading font-700 text-lg text-navy-900 mb-3">School Administrators</h3>
+            <p class="font-body text-sm text-gray-500 leading-relaxed">
+              Streamline exam processing, reduce turnaround time from days to minutes, and provide parents with professional, data-rich progress reports.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================
+       FINAL CTA
+       ============================== -->
+  <section class="relative overflow-hidden grain bg-navy-950 py-20 md:py-28">
+    <!-- Decorative -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-indigo-600/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 right-0 w-64 h-64 bg-indigo-500/5 rounded-full blur-2xl"></div>
+
+    <div class="relative z-10 max-w-3xl mx-auto px-6 text-center">
+      <h2 class="font-heading font-800 text-3xl md:text-5xl text-white tracking-tight mb-6">
+        Ready to unify your schools?
+      </h2>
+      <p class="font-body text-base md:text-lg text-indigo-200/60 mb-10 leading-relaxed max-w-lg mx-auto">
+        Join coaching organizations that have already simplified their assessment workflow.
+      </p>
+      <a href="https://app.reportcard.pro" target="_blank" rel="noopener"
+         class="relative cta-pulse inline-block font-heading font-600 text-sm px-10 py-4 rounded-full bg-white text-navy-950 hover:bg-indigo-50 transition-colors shadow-xl shadow-black/20">
+        Get Started Free
+      </a>
+    </div>
+  </section>
+
+  <!-- ==============================
+       FOOTER
+       ============================== -->
+  <footer class="bg-navy-950 border-t border-white/5 py-10">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <!-- Left -->
+        <div class="flex items-center gap-6">
+          <a href="https://omrreport.com" class="font-heading font-600 text-white/80 hover:text-white transition-colors text-sm">
+            OMR Report
+          </a>
+          <span class="text-white/10">|</span>
+          <a href="mailto:hey@fazzle.dev" class="font-body text-sm text-white/40 hover:text-white/70 transition-colors">
+            hey@fazzle.dev
+          </a>
+        </div>
+
+        <!-- Right -->
+        <p class="font-body text-sm text-white/30">
+          Built by <a href="https://fazzle.dev" target="_blank" rel="noopener" class="text-white/50 hover:text-white/80 transition-colors underline underline-offset-2 decoration-white/10 hover:decoration-white/30">Fazil</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
