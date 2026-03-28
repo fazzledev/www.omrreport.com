@@ -7,9 +7,9 @@
 
   <rect x="10" y="8" width="260" height="364" rx="5" fill="#fdfcfa" stroke="#d1cbc5" stroke-width="1" filter="url(#report-shadow)"/>
 
-  <rect x="10" y="8" width="260" height="5" rx="5" fill="#c45d2c"/>
-  <rect x="10" y="8" width="260" height="5" fill="#c45d2c"/>
-  <rect x="10" y="11" width="260" height="2" fill="#c45d2c"/>
+  <rect x="10" y="8" width="260" height="5" rx="5" fill="#D63550"/>
+  <rect x="10" y="8" width="260" height="5" fill="#D63550"/>
+  <rect x="10" y="11" width="260" height="2" fill="#D63550"/>
 
   <text x="28" y="36" font-family="'DM Serif Display', Georgia, serif" font-size="13" fill="#1a1714" font-weight="400">Performance Report</text>
   <text x="28" y="50" font-family="'Source Sans 3', sans-serif" font-size="7.5" fill="#968c83" font-weight="500">JEE Main — Mock Test 14 · Physics</text>
@@ -17,7 +17,7 @@
   <line x1="28" y1="58" x2="252" y2="58" stroke="#e8e4e0" stroke-width="0.75"/>
 
   <circle cx="64" cy="94" r="26" fill="none" stroke="#e8e4e0" stroke-width="3"/>
-  <circle cx="64" cy="94" r="26" fill="none" stroke="#c45d2c" stroke-width="3" stroke-linecap="round"
+  <circle cx="64" cy="94" r="26" fill="none" stroke="#D63550" stroke-width="3" stroke-linecap="round"
           stroke-dasharray="127.5" stroke-dashoffset="28"
           transform="rotate(-90 64 94)"/>
   <text x="64" y="91" font-family="'DM Serif Display', Georgia, serif" font-size="16" fill="#1a1714" text-anchor="middle" font-weight="400">78</text>
@@ -30,7 +30,7 @@
 
   <rect x="190" y="70" width="56" height="22" rx="3" fill="#f7f4f0"/>
   <text x="218" y="79" font-family="'Source Sans 3', sans-serif" font-size="6" fill="#968c83" text-anchor="middle" font-weight="600">ACCURACY</text>
-  <text x="218" y="89" font-family="'Source Sans 3', sans-serif" font-size="9" fill="#c45d2c" text-anchor="middle" font-weight="700">76.7%</text>
+  <text x="218" y="89" font-family="'Source Sans 3', sans-serif" font-size="9" fill="#D63550" text-anchor="middle" font-weight="700">76.7%</text>
   <rect x="190" y="96" width="56" height="22" rx="3" fill="#f7f4f0"/>
   <text x="218" y="105" font-family="'Source Sans 3', sans-serif" font-size="6" fill="#968c83" text-anchor="middle" font-weight="600">AVG TIME</text>
   <text x="218" y="115" font-family="'Source Sans 3', sans-serif" font-size="9" fill="#2c2721" text-anchor="middle" font-weight="700">1m 42s</text>
@@ -42,12 +42,12 @@
   <text x="28" y="162" font-family="'Source Sans 3', sans-serif" font-size="7.5" fill="#3d3630">Mechanics</text>
   <text x="252" y="162" font-family="'Source Sans 3', sans-serif" font-size="7.5" fill="#5c534a" text-anchor="end" font-weight="600">9/10</text>
   <rect x="28" y="166" width="224" height="5" rx="2.5" fill="#e8e4e0"/>
-  <rect x="28" y="166" width="202" height="5" rx="2.5" fill="#c45d2c"/>
+  <rect x="28" y="166" width="202" height="5" rx="2.5" fill="#D63550"/>
 
   <text x="28" y="184" font-family="'Source Sans 3', sans-serif" font-size="7.5" fill="#3d3630">Thermodynamics</text>
   <text x="252" y="184" font-family="'Source Sans 3', sans-serif" font-size="7.5" fill="#5c534a" text-anchor="end" font-weight="600">7/10</text>
   <rect x="28" y="188" width="224" height="5" rx="2.5" fill="#e8e4e0"/>
-  <rect x="28" y="188" width="157" height="5" rx="2.5" fill="#c45d2c" opacity="0.8"/>
+  <rect x="28" y="188" width="157" height="5" rx="2.5" fill="#D63550" opacity="0.8"/>
 
   <text x="28" y="206" font-family="'Source Sans 3', sans-serif" font-size="7.5" fill="#3d3630">Optics</text>
   <text x="252" y="206" font-family="'Source Sans 3', sans-serif" font-size="7.5" fill="#5c534a" text-anchor="end" font-weight="600">3/5</text>
@@ -57,17 +57,17 @@
   <text x="28" y="228" font-family="'Source Sans 3', sans-serif" font-size="7.5" fill="#3d3630">Electrostatics</text>
   <text x="252" y="228" font-family="'Source Sans 3', sans-serif" font-size="7.5" fill="#5c534a" text-anchor="end" font-weight="600">4/5</text>
   <rect x="28" y="232" width="224" height="5" rx="2.5" fill="#e8e4e0"/>
-  <rect x="28" y="232" width="179" height="5" rx="2.5" fill="#c45d2c" opacity="0.85"/>
+  <rect x="28" y="232" width="179" height="5" rx="2.5" fill="#D63550" opacity="0.85"/>
 
   <line x1="28" y1="248" x2="252" y2="248" stroke="#e8e4e0" stroke-width="0.75"/>
 
   <text x="28" y="264" font-family="'Source Sans 3', sans-serif" font-size="8" fill="#5c534a" font-weight="700" letter-spacing="0.8">RESPONSE ANALYSIS</text>
 
-  <rect x="28" y="274" width="10" height="10" rx="2" fill="#c45d2c"/>
+  <rect x="28" y="274" width="10" height="10" rx="2" fill="#D63550"/>
   <text x="44" y="282" font-family="'Source Sans 3', sans-serif" font-size="7" fill="#3d3630" font-weight="600">Correct</text>
   <text x="90" y="282" font-family="'Source Sans 3', sans-serif" font-size="7" fill="#968c83">23</text>
   <rect x="108" y="275" width="144" height="8" rx="2" fill="#f7f4f0"/>
-  <rect x="108" y="275" width="110" height="8" rx="2" fill="#c45d2c"/>
+  <rect x="108" y="275" width="110" height="8" rx="2" fill="#D63550"/>
 
   <rect x="28" y="290" width="10" height="10" rx="2" fill="#1a1714" opacity="0.15"/>
   <text x="44" y="298" font-family="'Source Sans 3', sans-serif" font-size="7" fill="#3d3630" font-weight="600">Wrong</text>
@@ -86,7 +86,7 @@
   <text x="28" y="344" font-family="'Source Sans 3', sans-serif" font-size="8" fill="#5c534a" font-weight="700" letter-spacing="0.8">VS CLASS AVERAGE</text>
 
   <circle cx="52" cy="362" r="11" fill="none" stroke="#e8e4e0" stroke-width="3"/>
-  <circle cx="52" cy="362" r="11" fill="none" stroke="#c45d2c" stroke-width="3" stroke-linecap="round"
+  <circle cx="52" cy="362" r="11" fill="none" stroke="#D63550" stroke-width="3" stroke-linecap="round"
           stroke-dasharray="53.8" stroke-dashoffset="12"
           transform="rotate(-90 52 362)"/>
   <text x="52" y="365" font-family="'Source Sans 3', sans-serif" font-size="6.5" fill="#1a1714" text-anchor="middle" font-weight="700">78</text>
@@ -100,13 +100,13 @@
   <text x="52" y="378" font-family="'Source Sans 3', sans-serif" font-size="5.5" fill="#968c83" text-anchor="middle">You</text>
   <text x="90" y="378" font-family="'Source Sans 3', sans-serif" font-size="5.5" fill="#968c83" text-anchor="middle">Class</text>
 
-  <rect x="120" y="352" width="72" height="22" rx="4" fill="#c45d2c" opacity="0.08"/>
-  <rect x="120" y="352" width="72" height="22" rx="4" stroke="#c45d2c" stroke-width="0.5" fill="none" opacity="0.3"/>
-  <text x="156" y="362" font-family="'Source Sans 3', sans-serif" font-size="6" fill="#c45d2c" text-anchor="middle" font-weight="600" letter-spacing="0.3">PERCENTILE</text>
-  <text x="156" y="372" font-family="'DM Serif Display', Georgia, serif" font-size="11" fill="#c45d2c" text-anchor="middle">93.5</text>
+  <rect x="120" y="352" width="72" height="22" rx="4" fill="#D63550" opacity="0.08"/>
+  <rect x="120" y="352" width="72" height="22" rx="4" stroke="#D63550" stroke-width="0.5" fill="none" opacity="0.3"/>
+  <text x="156" y="362" font-family="'Source Sans 3', sans-serif" font-size="6" fill="#D63550" text-anchor="middle" font-weight="600" letter-spacing="0.3">PERCENTILE</text>
+  <text x="156" y="372" font-family="'DM Serif Display', Georgia, serif" font-size="11" fill="#D63550" text-anchor="middle">93.5</text>
 
   <rect x="200" y="352" width="52" height="22" rx="4" fill="#f7f4f0"/>
   <text x="226" y="362" font-family="'Source Sans 3', sans-serif" font-size="6" fill="#968c83" text-anchor="middle" font-weight="600">TREND</text>
-  <polygon points="220,371 226,365 232,371" fill="#c45d2c" opacity="0.7"/>
-  <text x="240" y="372" font-family="'Source Sans 3', sans-serif" font-size="8" fill="#c45d2c" text-anchor="middle" font-weight="700">+6</text>
+  <polygon points="220,371 226,365 232,371" fill="#D63550" opacity="0.7"/>
+  <text x="240" y="372" font-family="'Source Sans 3', sans-serif" font-size="8" fill="#D63550" text-anchor="middle" font-weight="700">+6</text>
 </svg>
